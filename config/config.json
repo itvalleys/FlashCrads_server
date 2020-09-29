@@ -1,0 +1,13 @@
+{
+  "development": {
+    "PORT": 3000,
+    "MONGODB_URI": "mongodb://localhost:27017/FlashQuestions",
+    "JWT_SECRET": "SECRET#123",
+    "JWT_EXP": "60m"
+  },
+  "production": {
+    "MONGODB_URI": "mongodb+srv://charan:bharathi@cluster0-2hbtz.mongodb.net/chatapp?retryWrites=true&w=majority",
+    "JWT_SECRET": "SECRET#123",
+    "JWT_EXP": "6688224"
+  }
+}
