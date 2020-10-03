@@ -11,6 +11,7 @@ var courseSchema = new mongoose.Schema({
     subjects: [
         {
             subjectName: { type: String },
+            courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'course' },
             concepts: [
                 {
                     conceptName: { type: String },

@@ -37,6 +37,12 @@ app.use('/users', usersRouter);
 //spcket
 const server = require('http').createServer(app);
 
+const io = require('socket.io').listen(server);
+
+//userclass
+
+require('./socket/streams')(io);
+
 
 // start server
 server.listen(process.env.PORT || '3000', () =>

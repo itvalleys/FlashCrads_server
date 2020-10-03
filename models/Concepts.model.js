@@ -9,18 +9,15 @@ var conceptSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    locked: { type: Boolean, default: true },
     subjectName: { type: String },
+    subjectId: { type: mongoose.Schema.Types.ObjectId, ref: 'subject' },
     courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Courses' },
-    questions: [
-        {
-            question: { type: String }
-        }
-    ],
-    answers: [
-        {
-            answer: { type: String }
-        }
+    createdAt: { type: Date, default: Date.now() },
+    purchasedUsers: [
+        { userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' } }
     ]
+
 });
 
-module.exports = mongoose.model('concepts', conceptSchema);
+module.exports = mongoose.model('concept', conceptSchema);
