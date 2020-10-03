@@ -6,7 +6,7 @@
     "JWT_EXP": "60m"
   },
   "production": {
-    "MONGODB_URI": "mongodb+srv://charan:bharathi@cluster0-2hbtz.mongodb.net/chatapp?retryWrites=true&w=majority",
+    "MONGODB_URI": "mongodb+srv://charan:bharathi@cluster0-2hbtz.mongodb.net/FlashQuestions?retryWrites=true&w=majority",
     "JWT_SECRET": "SECRET#123",
     "JWT_EXP": "6688224"
   }
