@@ -28,7 +28,10 @@ module.exports.authenticate = (req, res, next) => {
         if (err) return res.status(400).json(err);
         // registered user
 
-        else if (user) return res.status(200).json({ token: user.generateJwt() });
+        else if (user) {
+            console.log(user);
+            return res.status(200).json({ token: user.generateJwt() });
+        }
         // unknown user or wrong password
         else return res.status(404).json(info);
     })(req, res);
@@ -46,11 +49,14 @@ module.exports.google = (req, res, next) => {
                 imgUrl: req.body.imgurl,
                 password: "kjsbdbfskjhvsbvskhbvsavbkbb@#@#"
             }
+            console.log(newgoogleUser)
             User.create(newgoogleUser)
                 .then(result => {
                     var payload = {
                         _id: result._id,
-                        fullName: req.body.name
+                        fullName: result.fullName,
+                        email: result.email,
+                        imgUrl: result.imgUrl
                     }
                     var newToken = jwt.sign(payload, process.env.JWT_SECRET,
                         {
@@ -61,10 +67,12 @@ module.exports.google = (req, res, next) => {
                 .catch(err => console.log("something problem in creating user"))
         }
         else {
-            console.log("user exists need to login");
+            console.log(user);
             var payload = {
                 _id: user._id,
-                fullName: req.body.name
+                fullName: req.body.name,
+                email: user.email,
+                imgUrl: user.imgUrl
             }
             var newToken = jwt.sign(payload, process.env.JWT_SECRET,
                 {
@@ -86,4 +94,18 @@ module.exports.getfavlist = (req, res, next) => {
             res.status(200).json({ message: "got daaata", favlist })
         })
         .catch((err) => { res.status(200).json({ message: "got err", err }) })
+};
+
+module.exports.getbyNaam = (req, res) => {
+    console.log(req.params);
+    User.findOne({
+        _id: req.params.id,
+    })
+        .then((record) => {
+
+            res.status(200).json({ message: 'user Found', record });
+        })
+        .catch((err) => {
+            res.status(400).json({ message: 'went wrong with finding !' });
+        });
 };

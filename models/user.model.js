@@ -22,6 +22,7 @@ var userSchema = new mongoose.Schema({
 
   imgUrl: {
     type: String,
+    default: 'https://www.flaticon.com/svg/static/icons/svg/1177/1177568.svg'
   },
   appointments: [
     {
@@ -88,7 +89,7 @@ userSchema.methods.verifyPassword = function (password) {
 
 userSchema.methods.generateJwt = function () {
   return jwt.sign(
-    { _id: this._id, fullName: this.fullName },
+    { _id: this._id, fullName: this.fullName, email: this.email, imgUrl: this.imgUrl },
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_EXP,

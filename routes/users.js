@@ -30,6 +30,8 @@ router.post('/addTofavourites', jwtHelper.verifyJwtToken, coctrl.pushtofav)
 
 router.get('/getfavlist', jwtHelper.verifyJwtToken, userCtrl.getfavlist)
 
+router.get('/getbyId/:id', userCtrl.getbyNaam)
+
 module.exports = router;
 
 
