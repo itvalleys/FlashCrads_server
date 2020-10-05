@@ -23,4 +23,14 @@ router.get('/getConceptsofSubj/:id', coctrl.getConceptsofSubj)
 
 router.get('/getQueOfConcept/:id', coctrl.getQueOfConcept)
 
+
+router.post('/googleuser', userCtrl.google)
+
+router.post('/addTofavourites', jwtHelper.verifyJwtToken, coctrl.pushtofav)
+
+router.get('/getfavlist', jwtHelper.verifyJwtToken, userCtrl.getfavlist)
+
 module.exports = router;
+
+
+

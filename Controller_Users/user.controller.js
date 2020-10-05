@@ -5,6 +5,7 @@ const User = require("../models/user.model");
 
 
 module.exports.register = (req, res, next) => {
+
     var user = new User();
     user.fullName = req.body.fullName;
     user.email = req.body.email;
@@ -35,15 +36,21 @@ module.exports.authenticate = (req, res, next) => {
 
 
 module.exports.google = (req, res, next) => {
+
+    console.log(req.body)
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user) {
-            var newgoogleUser = req.body;
-            console.log(newgoogleUser)
-            User.create(req.body)
+            var newgoogleUser = {
+                fullName: req.body.name,
+                email: req.body.email,
+                imgUrl: req.body.imgurl,
+                password: "kjsbdbfskjhvsbvskhbvsavbkbb@#@#"
+            }
+            User.create(newgoogleUser)
                 .then(result => {
                     var payload = {
-                        _id: req.body.googleId,
-                        fullName: req.body.username
+                        _id: result._id,
+                        fullName: req.body.name
                     }
                     var newToken = jwt.sign(payload, process.env.JWT_SECRET,
                         {
@@ -56,8 +63,8 @@ module.exports.google = (req, res, next) => {
         else {
             console.log("user exists need to login");
             var payload = {
-                _id: req.body.googleId,
-                fullName: req.body.username
+                _id: user._id,
+                fullName: req.body.name
             }
             var newToken = jwt.sign(payload, process.env.JWT_SECRET,
                 {
@@ -66,4 +73,17 @@ module.exports.google = (req, res, next) => {
             return res.status(200).json({ message: "token provided after user verified", newToken });
         }
     });
-}
+};
+
+module.exports.getfavlist = (req, res, next) => {
+    console.log(req.body);
+    console.log(req._id)
+    User.find({ _id: req._id })
+        .then((result) => {
+            let favlist = result[0].favlist;
+            console.log(favlist);
+
+            res.status(200).json({ message: "got daaata", favlist })
+        })
+        .catch((err) => { res.status(200).json({ message: "got err", err }) })
+};

@@ -17,8 +17,12 @@ var userSchema = new mongoose.Schema({
     required: "Password can't be empty",
     minlength: [4, 'Password must be atleast 4 character long'],
   },
+
   saltSecret: String,
 
+  imgUrl: {
+    type: String,
+  },
   appointments: [
     {
       appointmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' },
@@ -36,8 +40,8 @@ var userSchema = new mongoose.Schema({
 
   favlist: [
     {
-      favoneId: { type: mongoose.Schema.Types.ObjectId, ref: 'doctor' },
-      favname: { type: String, default: '' }
+      courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'course' },
+      coursename: { type: String }
     },
   ],
 

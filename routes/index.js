@@ -30,4 +30,5 @@ router.post('/editSingleQue', queCtrl.editSingleQue)
 
 router.post('/adminauthenticate', adctrl.authentication)
 
+
 module.exports = router;
