@@ -15,6 +15,7 @@ var adminSchema = new mongoose.Schema({
 
     fullname: {
         type: String,
+        default: 'Admin'
     },
 
     imgurl: {

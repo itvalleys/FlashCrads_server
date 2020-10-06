@@ -5,6 +5,10 @@ var courseCtrl = require('../controllers_Admin/course.controller');
 var conCtrl = require('../controllers_Admin/concept.controller');
 var queCtrl = require('../controllers_Admin/QnA.controller');
 var adctrl = require('../controllers_Admin/admin.controller');
+
+const jwtHelper = require('../config/jwtHelper');
+
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -30,5 +34,8 @@ router.post('/editSingleQue', queCtrl.editSingleQue)
 
 router.post('/adminauthenticate', adctrl.authentication)
 
+router.get('/getadmindata', jwtHelper.verifyJwtToken, adctrl.getadmindata)
+
+router.post('/updateAdmin', jwtHelper.verifyJwtToken, adctrl.updateAdmin)
 
 module.exports = router;

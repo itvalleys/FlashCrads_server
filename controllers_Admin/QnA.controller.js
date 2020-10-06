@@ -22,9 +22,14 @@ module.exports = {
         console.log(req.body);
         question.updateOne(
             { QnA: { $elemMatch: { _id: { $eq: req.body.id } } } },
-            { $set: { "QnA.$.Questions": req.body.que } }
+            {
+                $set: {
+                    "QnA.$.Questions": req.body.que,
+                    "QnA.$.Answers": req.body.ans
+                }
+            }
         )
-            .then(record => { console.log(record) })
-            .catch(err => { console.log(err) })
+            .then(record => { res.status(200).json({ message: 'Updated the record', record }) })
+            .catch(err => { res.status(400).json({ message: 'something went wrong', err }) })
     }
 }
